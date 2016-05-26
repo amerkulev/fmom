@@ -1,0 +1,244 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# fmomis-api
+
+Апи для мобильных приложений пациентов
+
+API: ***api.fmomi.newway.pro***
+
+# Group Авторизация
+
+## Проверка связи [/api/ping]
++ Request
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "PONG"
+        }
+        
+## Регистрация [/api/auth/registration?phone={phone}]
+### Запрос на отправку SMS [GET]
++ Parameters
+    + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
+
++ Request
+
+    + Headers
+
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "На ваш сотовый телефон отправлен временный пароль"
+        }        
+
+## Авторизация [/api/auth/login?phone={phone}&password={password}]
+### Получить доступ к мобильному приложению [POST]
++ Parameters
+    + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
+    + password (required, string, `3890`) ... `пароль`полученный при регистрации или заполненный самостоятельно
+
++ Request
+    
+    + Headers
+
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Успешно получен sid",
+            "sid":"fe99437d-4479-4c21-a979-110eed862fcb"
+        }
+        
+
+# Group Пациент
+
+    ```java
+    Gender {
+        Male("М"),
+        Female("Ж");
+    }
+
+    ConsultationState {
+        NEW("Новая"),
+        COMPLETED("Завершена"), 
+        CANCELED("Отменена");
+    }
+
+## Смена пароля [/api/patient/password/?password={password}]
+### Обновление пароля [POST]
+
++ Parameters
+
+    + password (required, string, `password`) ... `password` новое значение места работы
+
++ Request (application/json)
+
+    + Headers
+    
+            sid: {sid}
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Пароль изменен"
+        } 
+        
+# Group Консультации
+Раздел консультаций
+
+## Консультации [/api/consultation?nextId={nextId}&size={size}]
+### Получение списка консультаций [GET]
+
++ Parameters
+
+    + nextId (optional, integer) ... `nextId` первый элемент с коротого получать список
+    + size (optional, integer, `10`)
+    
+
++ Request (application/json)
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список консультаций успешно прочитан!",
+           "nextId": 2,
+           "consultations": [{
+              "id": 1,
+              "visitAt": "2015-03-05T17:06:00.000+0500",
+              "state": "COMPLETED",
+              "diagnosis": "",
+              "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+              }],
+              "researchPlan": "",
+              "status": "",
+              "recommendations": "Рекомендация 1: 456: 789: 123",
+              "employee":          {
+                    "id": 1,
+                    "fio": "Иванов Дмитрий Викторович",
+                    "employeeType":             {
+                        "id": "54bf2007ce9c157100783655",
+                        "name": "терапевт ревматолог"
+                    }
+                }
+           }]
+        }
+
+## Консультация [/api/consultation/{id}]
+### Чтение консультации [GET]
+
++ Parameters
+
+    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
+    + id (required, integer, `1`)
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Карточка консультации прочитана успешно!",
+           "consultation":    {
+              "id": 1,
+              "visitAt": "2015-03-06T16:21:00.000+0500",
+              "state": "COMPLETED",
+              "diagnosis": "",
+              "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+              }],
+              "researchPlan": "",
+              "status": "",
+              "recommendations": "Рекомендация 1: 456: 789: 123",
+              "employee":          {
+                    "id": 1,
+                    "fio": "Иванов Дмитрий Викторович",
+                    "employeeType":             {
+                        "id": "54bf2007ce9c157100783655",
+                        "name": "терапевт ревматолог"
+                    }
+                }
+           }
+        }
+        
+## Аптека [/api/pharmacy/{id}]
+### Чтение цен на лекарства [GET]
+
++ Parameters
+
+    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
+    + id (required, integer, `1`) ... идентификатор консультации
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+               "success": true,
+               "message": "Цены прочитаны успешно!",
+               "pharmacy": [{
+                  "id": 1,
+                  "title" : "Живика"
+                  "address": "Город екатеринбург, Ленина 105",
+                  "medicines": [{
+                    "id":1,
+                    "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    "price": 100, //копейки???
+                  }]
+               }]
+        }
+    
+### Размещение заявки на лекарства [POST]
+
++ Parameters
+
+    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
+    + id (required, integer, `1`) ... идентификатор консультации
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
+    {
+          "id": 1, // идентификатор аптеки
+    } 
+
++ Response 200 (application/json)
+
+        {
+               "success": true,
+               "message": "Заказ успешно размещен. Ожидайте звонка",
+        }
