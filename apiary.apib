@@ -2,9 +2,7 @@ FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
 # fmomis-api
-
 Апи для мобильных приложений пациентов
-
 API: ***api.fmomi.newway.pro***
 
 # Group Авторизация
@@ -25,13 +23,10 @@ API: ***api.fmomi.newway.pro***
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
 
 + Request
-
     + Headers
-
-            X-API-VERSION: v1
+        X-API-VERSION: v1
 
 + Response 200 (application/json)
-
         {
            "success": true,
            "message": "На ваш сотовый телефон отправлен временный пароль"
@@ -57,6 +52,25 @@ API: ***api.fmomi.newway.pro***
             "sid":"fe99437d-4479-4c21-a979-110eed862fcb"
         }
         
+## Смена пароля [/api/auth/password/?password={password}]
+### Обновление пароля [POST]
+
++ Parameters
+
+    + password (required, string, `password`) ... `password` новое значение места работы
+
++ Request (application/json)
+
+    + Headers
+    
+            sid: {sid}
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+        {
+            "success": true,
+            "message": "Пароль изменен"
+        } 
 
 # Group Пациент
 
@@ -72,38 +86,16 @@ API: ***api.fmomi.newway.pro***
         CANCELED("Отменена");
     }
 
-## Смена пароля [/api/patient/password/?password={password}]
-### Обновление пароля [POST]
-
-+ Parameters
-
-    + password (required, string, `password`) ... `password` новое значение места работы
-
-+ Request (application/json)
-
-    + Headers
-    
-            sid: {sid}
-            X-API-VERSION: v1
-
-+ Response 200 (application/json)
-
-        {
-            "success": true,
-            "message": "Пароль изменен"
-        } 
-        
 # Group Консультации
 Раздел консультаций
 
-## Консультации [/api/consultation?nextId={nextId}&size={size}]
+## Консультации [/api/consultation?page={page}&size={size}]
 ### Получение списка консультаций [GET]
 
 + Parameters
 
-    + nextId (optional, integer) ... `nextId` первый элемент с коротого получать список
+    + page (optional, integer) ... `page` номер страницы
     + size (optional, integer, `10`)
-    
 
 + Request (application/json)
 
@@ -117,12 +109,11 @@ API: ***api.fmomi.newway.pro***
         {
            "success": true,
            "message": "Список консультаций успешно прочитан!",
-           "nextId": 2,
            "consultations": [{
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnosis": "",
+              "diagnostics": "",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -166,7 +157,7 @@ API: ***api.fmomi.newway.pro***
               "id": 1,
               "visitAt": "2015-03-06T16:21:00.000+0500",
               "state": "COMPLETED",
-              "diagnosis": "",
+              "diagnostics": "Ветрянка",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -219,7 +210,6 @@ API: ***api.fmomi.newway.pro***
         }
     
 ### Размещение заявки на лекарства [POST]
-
 + Parameters
 
     + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
