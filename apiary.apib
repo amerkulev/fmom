@@ -32,7 +32,7 @@ API: ***api.fmomi.newway.pro***
            "message": "PONG"
         }
         
-## Регистрация [/api/auth/registration?phone={phone}]
+## Регистрация пациента [/api/auth/patient/registration?phone={phone}]
 ### Запрос на отправку SMS [GET]
 + Parameters
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
@@ -47,7 +47,7 @@ API: ***api.fmomi.newway.pro***
            "message": "На ваш сотовый телефон отправлен временный пароль"
         }        
 
-## Авторизация [/api/auth/login?phone={phone}&password={password}]
+## Авторизация пациента [/api/auth/patient/login?phone={phone}&password={password}]
 ### Получить доступ к мобильному приложению [POST]
 + Parameters
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
@@ -228,7 +228,21 @@ API: ***api.fmomi.newway.pro***
 
         {
             "success": true,
-            "message": "Шаблон консультации создан!"
+            "message": "Шаблон консультации создан!",
+            "template": {
+                "id": 1,
+                "title": "ОРЗ",
+                "visitAt": "2015-03-05T17:06:00.000+0500",
+                "state": "COMPLETED",
+                "diagnostics": "Ветрянка",
+                "treatmentPlan": [{
+                    id: 1,
+                    title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+                }],
+                "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+                "recommendations": "Рекомендация 1: 456: 789: 123"            
+            }
         }
 
 #Раздел консультаций
