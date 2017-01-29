@@ -5,6 +5,21 @@ HOST: http://api.fmomi.newway.pro/
 Апи для мобильных приложений пациентов
 API: ***api.fmomi.newway.pro***
 
+# Перечисления
+
+    ```java
+    Gender {
+        Male("М"),
+        Female("Ж");
+    }
+
+    ConsultationState {
+        NEW("Новая"),
+        COMPLETED("Завершена"), 
+        CANCELED("Отменена");
+    }
+
+
 # Group Авторизация
 
 ## Проверка связи [/api/ping]
@@ -72,25 +87,196 @@ API: ***api.fmomi.newway.pro***
             "message": "Пароль изменен"
         } 
 
-# Group Пациент
+#Group Врач
+##Список последних консультаций [/api/doctor/patient?page={page}&size={size}]
+###Прочитать список последних консультаций[GET]
 
-    ```java
-    Gender {
-        Male("М"),
-        Female("Ж");
-    }
++ Parameters
 
-    ConsultationState {
-        NEW("Новая"),
-        COMPLETED("Завершена"), 
-        CANCELED("Отменена");
-    }
+    + page (optional, integer) ... `page` номер страницы
+    + size (optional, integer, `10`)
+    
++ Request (application/json)
 
-# Group Консультации
-Раздел консультаций
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
 
-## Консультации [/api/consultation?page={page}&size={size}]
-### Получение списка консультаций [GET]
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список консультаций успешно прочитан!",
+           "patients": [{
+              "id": 1,
+              "visitAt": "2015-03-05T17:06:00.000+0500",
+              "phone": "79022623586"
+           },
+           {
+              "id": 2,
+              "visitAt": "2015-03-05T17:06:00.000+0500",
+              "phone": "79022623586"
+           }]
+        }
+
+    
+#Раздел шаблоны
+
+##Шаблоны врача[/api/doctor/template/{id}]
+
+###Чтение шаблонов[GET]
++ Parameters
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Request (application/json)
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
++ Response 200 (application/json) 
+
+        {
+            "id": 1,
+            "title": "ОРЗ",
+            "visitAt": "2015-03-05T17:06:00.000+0500",
+            "state": "COMPLETED",
+            "diagnostics": "Ветрянка",
+            "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+            }],
+            "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+            "recommendations": "Рекомендация 1: 456: 789: 123"            
+        }
+
+##Шаблоны врача[/api/doctor/template]
+###Чтение списка шаблонов[GET]
+
++ Parameters
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Request (application/json)
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+            
++ Response 200 (application/json) 
+
+        {
+            "success": true,
+            "message": "Шаблон консультации создан!",
+            "templates": [{
+                "id": 1,
+                "title": "ОРЗ",
+                "visitAt": "2015-03-05T17:06:00.000+0500",
+                "state": "COMPLETED",
+                "diagnostics": "Ветрянка",
+                "treatmentPlan": [{
+                    id: 1,
+                    title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+                }],
+                "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+                "recommendations": "Рекомендация 1: 456: 789: 123"            
+            }]
+        }
+
+###Создания шаблона врача[POST]
++ Parameters
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Request (application/json)
+    + Method 
+            POST
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
+        {
+            "id": 1,
+            "title": "ОРЗ",
+            "visitAt": "2015-03-05T17:06:00.000+0500",
+            "state": "COMPLETED",
+            "diagnostics": "Ветрянка",
+            "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+            }],
+            "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+            "recommendations": "Рекомендация 1: 456: 789: 123"            
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Шаблон консультации создан!"
+        }
+
+#Раздел консультаций
+
+## Консультации пациента у врача[/api/doctor/consultation/{id}]
++ Parameters
+
+    + id (required, integer) ... `id` идентификатор консультации
+
++ Request (application/json)
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список консультаций успешно прочитан!",
+           "consultation": {
+              "id": 1,
+              "visitAt": "2015-03-05T17:06:00.000+0500",
+              "state": "COMPLETED",
+              "diagnostics": "Ветрянка",
+              "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+              }],
+              "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+              "status": "Консультация",
+              "recommendations": "Рекомендация 1: 456: 789: 123",
+              "employee":          {
+                    "id": 1,
+                    "phone": "79021234567",
+                    "employeeType":             {
+                        "id": "54bf2007ce9c157100783655",
+                        "name": "Терапевт"
+                    }
+                },
+              "price" : 305.12
+           }
+        }
+
+# Group Консультации Пациента
+## Консультации пациента [/api/patient/consultation?page={page}&size={size}]
+### Получение списка консультаций пациента [GET]
 
 + Parameters
 
@@ -124,7 +310,7 @@ API: ***api.fmomi.newway.pro***
               "recommendations": "Рекомендация 1: 456: 789: 123",
               "employee":          {
                     "id": 1,
-                    "fio": "Иванов Дмитрий Викторович",
+                    "phone": "79021234567",
                     "employeeType":             {
                         "id": "54bf2007ce9c157100783655",
                         "name": "Терапевт"
@@ -147,7 +333,7 @@ API: ***api.fmomi.newway.pro***
               "recommendations": "Рекомендация 1: 456: 789: 123",
               "employee":          {
                     "id": 1,
-                    "fio": "Иванов Сергей Петрович",
+                    "phone": "79021234567",
                     "employeeType":             {
                         "id": "54bf2007ce9c157100783655",
                         "name": "Шаман"
@@ -170,7 +356,7 @@ API: ***api.fmomi.newway.pro***
               "recommendations": "Рекомендация 1: 456: 789: 123",
               "employee":          {
                     "id": 1,
-                    "fio": "Иванов Иван Нет, не Иванович",
+                    "phone": "79021234567",
                     "employeeType":             {
                         "id": "54bf2007ce9c157100783655",
                         "name": "Терапевт"
@@ -198,7 +384,7 @@ API: ***api.fmomi.newway.pro***
               "recommendations": "Рекомендация 1: 456: 789: 123",
               "employee":          {
                     "id": 1,
-                    "fio": "Андреев Сергей Сергеевич",
+                    "phone": "79021234567",
                     "employeeType":             {
                         "id": "54bf2007ce9c157100783655",
                         "name": "Специалист по неведомой ерунде"
@@ -209,7 +395,7 @@ API: ***api.fmomi.newway.pro***
            ]
         }
 
-## Консультация [/api/consultation/{id}]
+## Консультация пациента [/api/patient/consultation/{id}]
 ### Чтение консультации [GET]
 
 + Parameters
@@ -244,7 +430,7 @@ API: ***api.fmomi.newway.pro***
               "recommendations": "Рекомендация 1: 456: 789: 123",
               "employee":          {
                     "id": 1,
-                    "fio": "Иванов Дмитрий Викторович",
+                    "phone": "79021234567",
                     "employeeType":             {
                         "id": "54bf2007ce9c157100783655",
                         "name": "терапевт ревматолог"
