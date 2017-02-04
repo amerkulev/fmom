@@ -32,7 +32,7 @@ API: ***api.fmomi.newway.pro***
            "message": "PONG"
         }
         
-## Регистрация пациента [/api/auth/patient/registration?phone={phone}]
+## Регистрация пациента [/api/patient/auth/registration?phone={phone}]
 ### Запрос на отправку SMS [GET]
 + Parameters
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
@@ -47,7 +47,7 @@ API: ***api.fmomi.newway.pro***
            "message": "На ваш сотовый телефон отправлен временный пароль"
         }        
 
-## Авторизация пациента [/api/auth/patient/login?phone={phone}&password={password}]
+## Авторизация пациента [/api/patient/auth/login?phone={phone}&password={password}]
 ### Получить доступ к мобильному приложению [POST]
 + Parameters
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
