@@ -22,6 +22,26 @@ API: ***api.fmomi.newway.pro***
 
 # Group Авторизация
 
+## Авторизация [/api/auth/login?phone={phone}&password={password}]
+### Получить доступ к мобильному приложению [POST]
++ Parameters
+    + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
+    + password (required, string, `3890`) ... `пароль`полученный при регистрации или заполненный самостоятельно
+
++ Request
+    
+    + Headers
+
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Успешно получен sid",
+            "sid":"fe99437d-4479-4c21-a979-110eed862fcb"
+        }
+
 ## Проверка связи [/api/ping]
 + Request
 
@@ -47,26 +67,6 @@ API: ***api.fmomi.newway.pro***
            "message": "На ваш сотовый телефон отправлен временный пароль"
         }        
 
-## Авторизация пациента [/api/auth/login?phone={phone}&password={password}]
-### Получить доступ к мобильному приложению [POST]
-+ Parameters
-    + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
-    + password (required, string, `3890`) ... `пароль`полученный при регистрации или заполненный самостоятельно
-
-+ Request
-    
-    + Headers
-
-            X-API-VERSION: v1
-
-+ Response 200 (application/json)
-
-        {
-           "success": true,
-           "message": "Успешно получен sid",
-            "sid":"fe99437d-4479-4c21-a979-110eed862fcb"
-        }
-        
 ## Смена пароля пациента [/api/patient/password/?password={password}]
 ### Обновление пароля пациента [POST]
 
@@ -162,7 +162,7 @@ API: ***api.fmomi.newway.pro***
 
 ##Шаблоны врача[/api/doctor/template/{id}]
 
-###Чтение шаблонов[GET]
+###Чтение шаблона[GET]
 + Parameters
 
     + Headers
