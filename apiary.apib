@@ -89,6 +89,21 @@ API: ***api.fmomi.newway.pro***
 
 #Group Врач
 
+## Регистрация врача [/api/doctor/auth/registration?phone={phone}]
+### Запрос на отправку SMS [GET]
++ Parameters
+    + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
+
++ Request
+    + Headers
+        X-API-VERSION: v1
+
++ Response 200 (application/json)
+        {
+           "success": true,
+           "message": "На ваш сотовый телефон отправлен временный пароль"
+        }        
+
 ## Смена пароля врача [/api/doctor/password/?password={password}]
 ### Обновление пароля пациента [POST]
 
