@@ -19,6 +19,9 @@ API: ***api.fmomi.newway.pro***
         CANCELED("Отменена");
     }
 
+    Authority {
+        ADMIN("Администратор"), DOCTOR("Врач"), SUPERVISOR("Суперадминистратор"), PATIENT("Пациент"), CUSTOMER("Заказчик");
+    }
 
 # Group Авторизация
 
@@ -39,7 +42,8 @@ API: ***api.fmomi.newway.pro***
         {
            "success": true,
            "message": "Успешно получен sid",
-            "sid":"fe99437d-4479-4c21-a979-110eed862fcb"
+            "sid":"fe99437d-4479-4c21-a979-110eed862fcb",
+            "authorities": [PATIENT]
         }
 
 ## Проверка связи [/api/ping]
