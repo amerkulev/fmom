@@ -201,12 +201,51 @@ API: ***api.fmomi.newway.pro***
             }
         }
 
+## Поиск пациентов по номеру или части первой части номера телефона [/api/doctor/patient/search/{phone}?page={page}&size={size}]
+### Найти пациентов по номеру или части первой части номера телефона [GET]
++ Parameters
+
+    + page (optional, integer) ... `page` номер страницы
+    + size (optional, integer, `10`)
+    + phone (required, string) 
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+    
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список пациентов успешно прочитан!",
+           "patients": [{
+              "id": 1,
+              "phone": "79021234567"
+           },
+           {
+              "id": 2,
+              "phone": "79021234567"
+           },
+           {
+              "id": 3,
+              "phone": "79021234567"
+           },
+           {
+              "id": 4,
+              "phone": "79021234567"
+           }]
+        }
+
+
 # Раздел шаблоны [/api/doctor/template/{id}]
 
 ### Чтение шаблона[GET]
 
 + Request (application/json)
-    
+
     + Headers
     
             X-API-VERSION: v1
