@@ -55,17 +55,22 @@ API: ***api.fmomi.newway.pro***
            "success": true,
            "message": "PONG"
         }
-        
+
 ## Регистрация пациента [/api/patient/auth/registration?phone={phone}]
 ### Запрос на отправку SMS [GET]
 + Parameters
+    
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
 
 + Request
+    
     + Headers
-        X-API-VERSION: v1
+                
+            X-API-VERSION: v1
+
 
 + Response 200 (application/json)
+
         {
            "success": true,
            "message": "На ваш сотовый телефон отправлен временный пароль"
@@ -78,31 +83,36 @@ API: ***api.fmomi.newway.pro***
 
     + password (required, string, `password`) ... `password` новое значение места работы
 
-+ Request (application/json)
++ Request
 
     + Headers
-    
+
             sid: {sid}
             X-API-VERSION: v1
 
 + Response 200 (application/json)
+
         {
             "success": true,
             "message": "Пароль изменен"
         } 
+    
 
-#Group Врач
-
+# Group Врач
 ## Регистрация врача [/api/doctor/auth/registration?phone={phone}]
 ### Запрос на отправку SMS [GET]
 + Parameters
+    
     + phone (required, string, `79655050288`) ... `phone` контактный телефонный номер пациента
 
 + Request
+
     + Headers
-        X-API-VERSION: v1
+
+            X-API-VERSION: v1
 
 + Response 200 (application/json)
+
         {
            "success": true,
            "message": "На ваш сотовый телефон отправлен временный пароль"
@@ -110,9 +120,7 @@ API: ***api.fmomi.newway.pro***
 
 ## Смена пароля врача [/api/doctor/password/?password={password}]
 ### Обновление пароля врача [POST]
-
 + Parameters
-
     + password (required, string, `password`) ... `password` новое значение места работы
 
 + Request (application/json)
@@ -123,6 +131,7 @@ API: ***api.fmomi.newway.pro***
             X-API-VERSION: v1
 
 + Response 200 (application/json)
+
         {
             "success": true,
             "message": "Пароль изменен"
@@ -136,11 +145,11 @@ API: ***api.fmomi.newway.pro***
 
     + page (optional, integer) ... `page` номер страницы
     + size (optional, integer, `10`)
-    
+
 + Request (application/json)
 
     + Headers
-            
+    
             X-API-VERSION: v1
             sid: {sid}
 
@@ -167,26 +176,42 @@ API: ***api.fmomi.newway.pro***
            }]
         }
 
-    
-    
-#Раздел шаблоны
-
-##Шаблоны врача[/api/doctor/template/{id}]
-
-###Чтение шаблона[GET]
-+ Parameters
-
-    + Headers
-            
-            X-API-VERSION: v1
-            sid: {sid}
-
+### Создать нового пациента[POST]
 + Request (application/json)
 
     + Headers
-            
+
             X-API-VERSION: v1
             sid: {sid}
+    + Body
+    
+            {
+                  "phone": "79021234567"
+            }
+
++ Response 200 (application/json)
+            
+        {
+            "success" : true,
+            "message" : "Пациент успешно создан!",
+            "patient" : {
+                "id" : 1,
+                "phone" : "79021234567",
+                "num" : 1 //Номер карточки
+            }
+        }
+
+# Раздел шаблоны [/api/doctor/template/{id}]
+
+### Чтение шаблона[GET]
+
++ Request (application/json)
+    
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+        
 + Response 200 (application/json) 
 
         {
@@ -204,15 +229,7 @@ API: ***api.fmomi.newway.pro***
             "recommendations": "Рекомендация 1: 456: 789: 123"            
         }
 
-##Шаблоны врача[/api/doctor/template]
-###Чтение списка шаблонов[GET]
-
-+ Parameters
-
-    + Headers
-            
-            X-API-VERSION: v1
-            sid: {sid}
+### Чтение списка шаблонов [/api/doctor/template]
 
 + Request (application/json)
 
@@ -243,34 +260,29 @@ API: ***api.fmomi.newway.pro***
         }
 
 ###Создания шаблона врача[POST]
-+ Parameters
-    + Headers
-            
-            X-API-VERSION: v1
-            sid: {sid}
-
 + Request (application/json)
-    + Method 
-            POST
+
     + Headers
-            
+
             X-API-VERSION: v1
             sid: {sid}
 
-        {
-            "id": 1,
-            "title": "ОРЗ",
-            "visitAt": "2015-03-05T17:06:00.000+0500",
-            "state": "COMPLETED",
-            "diagnostics": "Ветрянка",
-            "treatmentPlan": [{
-                id: 1,
-                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
-                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
-            }],
-            "researchPlan": "Сдать анализы. Анализы принимаются по будням",
-            "recommendations": "Рекомендация 1: 456: 789: 123"            
-        }
+    + Body            
+
+            {
+                "id": 1,
+                "title": "ОРЗ",
+                "visitAt": "2015-03-05T17:06:00.000+0500",
+                "state": "COMPLETED",
+                "diagnostics": "Ветрянка",
+                "treatmentPlan": [{
+                    id: 1,
+                    title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+                }],
+                "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+                "recommendations": "Рекомендация 1: 456: 789: 123"            
+            }
         
 + Response 200 (application/json)
 
@@ -293,8 +305,9 @@ API: ***api.fmomi.newway.pro***
             }
         }
 
-#Раздел консультаций
-## Консультации пациента у врача[/api/doctor/consultation?page={page}&size={size}]
+# Раздел консультаций [/api/doctor/consultation]
+## Консультации пациента у врача [/api/doctor/consultation?page={page}&size={size}]
+### Чтение списка консультаций врача[GET]
 + Parameters
 
     + page (optional, integer) ... `page` номер страницы
@@ -412,12 +425,14 @@ API: ***api.fmomi.newway.pro***
            ]
         }
         
-## Консультаця пациента у врача[/api/doctor/consultation/{id}]
+## Консультаця пациента у врача [/api/doctor/consultation/{id}]
+### Чтение консультации пациента у врача [GET]
 + Parameters
 
     + id (required, integer) ... `id` идентификатор консультации
 
 + Request (application/json)
+    
     + Headers
             
             X-API-VERSION: v1
@@ -580,7 +595,6 @@ API: ***api.fmomi.newway.pro***
 
 + Parameters
 
-    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
     + id (required, integer, `1`)
 
 + Request (application/json)
@@ -624,7 +638,6 @@ API: ***api.fmomi.newway.pro***
 
 + Parameters
 
-    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
     + id (required, integer, `1`) ... идентификатор консультации
 
 + Request (application/json)
@@ -683,7 +696,6 @@ API: ***api.fmomi.newway.pro***
 ### Размещение заявки на лекарства [POST]
 + Parameters
 
-    + sid (required, string, `00000000-0000-0000-0000-000000000000`) ... `sid` Ключ полученный при авторизаци
     + id (required, integer, `1`) ... идентификатор консультации
 
 + Request (application/json)
@@ -693,9 +705,11 @@ API: ***api.fmomi.newway.pro***
             X-API-VERSION: v1
             sid: {sid}
 
-    {
-          "id": 1, // идентификатор аптеки
-    } 
+    + Body
+    
+            {
+                  "id": 1, // идентификатор аптеки
+            } 
 
 + Response 200 (application/json)
 
