@@ -23,6 +23,10 @@ API: ***api.fmomi.newway.pro***
         ADMIN("Администратор"), DOCTOR("Врач"), SUPERVISOR("Суперадминистратор"), PATIENT("Пациент"), CUSTOMER("Заказчик");
     }
 
+    ParameterType {
+        DIAGNOSIS("Диагноз"), TREATMENT_PLAN("План лечения"), RECOMMENDATIONS("Рекомендации"), RESEARCH_PLAN("План исследований");
+    }
+
 # Group Авторизация
 
 ## Авторизация [/api/auth/login?phone={phone}&password={password}]
@@ -474,11 +478,13 @@ API: ***api.fmomi.newway.pro***
     + Body
     
             {
+              "patient" : {
+                    "id" : 1
+              },
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 id: 1,
-                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
                 plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
               }],
               "researchPlan": "Сдать анализы. Анализы принимаются по будням",
@@ -491,11 +497,12 @@ API: ***api.fmomi.newway.pro***
         {
            "success": true,
            "message": "Список консультаций успешно прочитан!",
-           "consultations": [{
+           "count": "10",
+           "consultation": {
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -504,91 +511,12 @@ API: ***api.fmomi.newway.pro***
               "researchPlan": "Сдать анализы. Анализы принимаются по будням",
               "status": "Консультация",
               "recommendations": "Рекомендация 1: 456: 789: 123",
-              "employee":          {
+              "patient":          {
                     "id": 1,
-                    "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
-                        "name": "Терапевт"
-                    }
+                    "phone": "79021234567"
                 },
               "price" : 305.12
-           },
-           {
-              "id": 2,
-              "visitAt": "2015-03-05T17:06:00.000+0500",
-              "state": "COMPLETED",
-              "diagnostics": "Мракобесие",
-              "treatmentPlan": [{
-                id: 1,
-                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
-                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
-              }],
-              "researchPlan": "Сдать анализы. Анализы принимаются по будням",
-              "status": "Окуривание",
-              "recommendations": "Рекомендация 1: 456: 789: 123",
-              "employee":          {
-                    "id": 1,
-                    "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
-                        "name": "Шаман"
-                    }
-                },
-              "price" : 300
-           },
-           {
-              "id": 3,
-              "visitAt": "2015-03-05T17:06:00.000+0500",
-              "state": "COMPLETED",
-              "diagnostics": "ОРВИ",
-              "treatmentPlan": [{
-                id: 1,
-                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
-                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
-              }],
-              "researchPlan": "Сдать анализы. Анализы принимаются по будням",
-              "status": "Консультация",
-              "recommendations": "Рекомендация 1: 456: 789: 123",
-              "employee":          {
-                    "id": 1,
-                    "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
-                        "name": "Терапевт"
-                    }
-                },
-              "price" : 128.5
-           },
-           {
-              "id": 4,
-              "visitAt": "2015-03-05T17:06:00.000+0500",
-              "state": "COMPLETED",
-              "diagnostics": "Неведомая ерунда",
-              "treatmentPlan": [{
-                id: 1,
-                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
-                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
-              },
-              {
-                id: 2,
-                title: "Test-huest",
-                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
-              }],
-              "researchPlan": "Сдать анализы. Анализы принимаются по будням",
-              "status": "Выписка",
-              "recommendations": "Рекомендация 1: 456: 789: 123",
-              "employee":          {
-                    "id": 1,
-                    "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
-                        "name": "Специалист по неведомой ерунде"
-                    }
-                },
-              "price" : 512
            }
-           ]
         }
 
         
@@ -623,16 +551,54 @@ API: ***api.fmomi.newway.pro***
               "researchPlan": "Сдать анализы. Анализы принимаются по будням",
               "status": "Консультация",
               "recommendations": "Рекомендация 1: 456: 789: 123",
-              "employee":          {
+              "patient":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
-                        "name": "Терапевт"
-                    }
-                },
+              },
               "price" : 305.12
            }
+        }
+
+# Параметры [/api/doctor/parameter/{ParameterType}]
+## Поиск параметра [/api/doctor/parameter/{ParameterType}?search={search}&page={page}&size={size}]
+### Найти параметр [GET]
+
++ Parameters
+
+    + ParameterType (required, ParameterType)
+    + search (optional, string)
+    + page (optional, integer) ... `page` номер страницы
+    + size (optional, integer, `10`)
+
++ Request (application/json)
+
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список параметров успешно прочитан!",
+           "count": 5,
+           "parameters": [{
+              "id": 1,
+              "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)"
+           },
+           {
+              "id": 2,
+              "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)"
+           },
+           {
+              "id": 3,
+              "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)"
+           },
+           {
+              "id": 4,
+              "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)"
+           }]
         }
 
 # Group Консультации Пациента
@@ -656,7 +622,7 @@ API: ***api.fmomi.newway.pro***
         {
            "success": true,
            "message": "Список консультаций успешно прочитан!",
-           "nextId": 5,
+           "count": 5,
            "consultations": [{
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
