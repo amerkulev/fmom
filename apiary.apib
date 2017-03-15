@@ -351,7 +351,7 @@ API: ***api.fmomi.newway.pro***
         }
 
 # Раздел консультаций [/api/doctor/consultation]
-## Консультации пациента у врача [/api/doctor/consultation?page={page}&size={size}]
+## Консультации пациентов у врача [/api/doctor/consultation?page={page}&size={size}]
 ### Чтение списка консультаций врача[GET]
 + Parameters
 
@@ -522,8 +522,8 @@ API: ***api.fmomi.newway.pro***
         }
 
         
-## Консультаця пациента у врача [/api/doctor/consultation/{id}]
-### Чтение консультации пациента у врача [GET]
+## Консультаця врача [/api/doctor/consultation/{id}]
+### Чтение консультации врача [GET]
 + Parameters
 
     + id (required, integer) ... `id` идентификатор консультации
@@ -559,6 +559,46 @@ API: ***api.fmomi.newway.pro***
               },
               "price" : 305.12
            }
+        }
+
+## Консультаций пациента врача [/api/doctor/consultation/patient/{id}]
+### Чтение консультаций пациента врача [GET]
++ Parameters
+
+    + id (required, integer) ... `id` идентификатор пациента
+
++ Request (application/json)
+    
+    + Headers
+            
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+           "success": true,
+           "message": "Список консультаций успешно прочитан!",
+           "count": 1,
+           "consultations": [{
+              "id": 1,
+              "visitAt": "2015-03-05T17:06:00.000+0500",
+              "state": "COMPLETED",
+              "diagnostics": "Ветрянка",
+              "treatmentPlan": [{
+                id: 1,
+                title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+              }],
+              "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+              "status": "Консультация",
+              "recommendations": "Рекомендация 1: 456: 789: 123",
+              "patient":          {
+                    "id": 1,
+                    "phone": "79021234567",
+              },
+              "price" : 305.12
+           }]
         }
 
 # Параметры [/api/doctor/parameter/{ParameterType}]
