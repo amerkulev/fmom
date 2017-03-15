@@ -561,11 +561,13 @@ API: ***api.fmomi.newway.pro***
            }
         }
 
-## Консультаций пациента врача [/api/doctor/consultation/patient/{id}]
+## Консультации пациента врача [/api/doctor/consultation/patient/{id}?page={page}&size={size}]
 ### Чтение консультаций пациента врача [GET]
 + Parameters
 
     + id (required, integer) ... `id` идентификатор пациента
+    + page (optional, integer) ... `page` номер страницы
+    + size (optional, integer, `10`)
 
 + Request (application/json)
     
