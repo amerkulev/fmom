@@ -274,10 +274,13 @@ API: ***api.fmomi.newway.pro***
             "recommendations": "Рекомендация 1: 456: 789: 123"            
         }
 
-### Чтение списка шаблонов [/api/doctor/template]
+### Чтение списка шаблонов [/api/doctor/template?page={page}&size={size}]
 
 + Request (application/json)
-
+    + Parameters
+        + page (optional, integer) ... `page` номер страницы
+        + size (optional, integer, `10`)
+        
     + Headers
             
             X-API-VERSION: v1
@@ -348,6 +351,38 @@ API: ***api.fmomi.newway.pro***
                 "researchPlan": "Сдать анализы. Анализы принимаются по будням",
                 "recommendations": "Рекомендация 1: 456: 789: 123"            
             }
+        }
+
+###Поиск шаблона врача [/api/doctor/template/search?search={search}&page={page}&size={size}]
++ Request (application/json)
+    + Parameters
+        + search (optional, integer) ... `search` начальная часть заголовка шаблона
+        + page (optional, integer) ... `page` номер страницы
+        + size (optional, integer, `10`)
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Шаблоны консультации успешно прочитаны!",
+            "templates": [{
+                "id": 1,
+                "title": "ОРЗ",
+                "visitAt": "2015-03-05T17:06:00.000+0500",
+                "state": "COMPLETED",
+                "diagnostics": "Ветрянка",
+                "treatmentPlan": [{
+                    id: 1,
+                    title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    plan: "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+                }],
+                "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+                "recommendations": "Рекомендация 1: 456: 789: 123"            
+            }]
         }
 
 # Раздел консультаций [/api/doctor/consultation]
