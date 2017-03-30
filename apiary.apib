@@ -80,6 +80,35 @@ API: ***api.fmomi.newway.pro***
            "message": "На ваш сотовый телефон отправлен временный пароль"
         }        
 
+## Обновление данных пациента [/api/patient]
+### Обновление пароля пациента [POST]
+
++ Request
+
+    + Headers
+
+            sid: {sid}
+            X-API-VERSION: v1
+    +Body
+    
+        {
+          "name": "name",
+          "address": "address",
+          "job": "job"
+        }
+        
++ Response 200 (application/json)
+
+        {
+            "patient": {
+                "name": "name",
+                "address": "address",
+                "job": "job"
+            },
+            "success": true,
+            "message": "Данные о пациенте успешно обновлены"
+        } 
+
 ## Смена пароля пациента [/api/patient/password/?password={password}]
 ### Обновление пароля пациента [POST]
 
