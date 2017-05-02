@@ -80,7 +80,7 @@ API: ***api.fmomi.newway.pro***
            "message": "На ваш сотовый телефон отправлен временный пароль"
         }        
 
-## Обновление данных пациента [/api/patient]
+## Данные пациента [/api/patient]
 ### Чтение данных пациента [GET]
 
 + Request
@@ -99,7 +99,8 @@ API: ***api.fmomi.newway.pro***
                 "contactPhone": "71234567891",
                 "phone": "71234567891"
                 "address": "address",
-                "job": "job"
+                "job": "job",
+                "birthDate": "2015-03-05T17:06:00.000+0500"
             },
             "success": true,
             "message": "Данные о пациенте успешно прочитаны"
@@ -119,7 +120,8 @@ API: ***api.fmomi.newway.pro***
             {
               "name": "name",
               "address": "address",
-              "job": "job"
+              "job": "job",
+              "birthDate": "2015-03-05T17:06:00.000+0500"
             }
         
 + Response 200 (application/json)
@@ -128,7 +130,8 @@ API: ***api.fmomi.newway.pro***
             "patient": {
                 "name": "name",
                 "address": "address",
-                "job": "job"
+                "job": "job",
+                "birthDate": "2015-03-05T17:06:00.000+0500"
             },
             "success": true,
             "message": "Данные о пациенте успешно обновлены"
@@ -318,7 +321,7 @@ API: ***api.fmomi.newway.pro***
             "title": "ОРЗ",
             "visitAt": "2015-03-05T17:06:00.000+0500",
             "state": "COMPLETED",
-            "diagnostics": "Ветрянка",
+            "diagnosis": "Ветрянка",
             "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -350,7 +353,7 @@ API: ***api.fmomi.newway.pro***
                 "title": "ОРЗ",
                 "visitAt": "2015-03-05T17:06:00.000+0500",
                 "state": "COMPLETED",
-                "diagnostics": "Ветрянка",
+                "diagnosis": "Ветрянка",
                 "treatmentPlan": [{
                     id: 1,
                     title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -373,7 +376,6 @@ API: ***api.fmomi.newway.pro***
     + Body            
 
             {
-                "id": 1,
                 "title": "ОРЗ",
                 "visitAt": "2015-03-05T17:06:00.000+0500",
                 "state": "COMPLETED",
@@ -487,7 +489,7 @@ API: ***api.fmomi.newway.pro***
               "id": 2,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Мракобесие",
+              "diagnosis": "Мракобесие",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -510,7 +512,7 @@ API: ***api.fmomi.newway.pro***
               "id": 3,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "ОРВИ",
+              "diagnosis": "ОРВИ",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -533,7 +535,7 @@ API: ***api.fmomi.newway.pro***
               "id": 4,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Неведомая ерунда",
+              "diagnosis": "Неведомая ерунда",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -636,7 +638,7 @@ API: ***api.fmomi.newway.pro***
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 "id": 1,
                 "parameterId" : 1,
@@ -730,7 +732,7 @@ API: ***api.fmomi.newway.pro***
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 "id": 1,
                 "parameterId" : 1,
@@ -816,7 +818,7 @@ API: ***api.fmomi.newway.pro***
               "id": 1,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -839,7 +841,7 @@ API: ***api.fmomi.newway.pro***
               "id": 2,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Мракобесие",
+              "diagnosis": "Мракобесие",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -862,7 +864,7 @@ API: ***api.fmomi.newway.pro***
               "id": 3,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "ОРВИ",
+              "diagnosis": "ОРВИ",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -885,7 +887,7 @@ API: ***api.fmomi.newway.pro***
               "id": 4,
               "visitAt": "2015-03-05T17:06:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Неведомая ерунда",
+              "diagnosis": "Неведомая ерунда",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
@@ -935,7 +937,7 @@ API: ***api.fmomi.newway.pro***
               "id": 1,
               "visitAt": "2015-03-06T16:21:00.000+0500",
               "state": "COMPLETED",
-              "diagnostics": "Ветрянка",
+              "diagnosis": "Ветрянка",
               "treatmentPlan": [{
                 id: 1,
                 title: "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
