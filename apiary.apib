@@ -95,9 +95,8 @@ API: ***api.fmomi.newway.pro***
 
         {
             "patient": {
-                "id": "1",
+                "id": 1,
                 "name": "name",
-                "contactPhone": "71234567891",
                 "phone": "71234567891"
                 "address": "address",
                 "job": "job",
@@ -136,6 +135,58 @@ API: ***api.fmomi.newway.pro***
             },
             "success": true,
             "message": "Данные о пациенте успешно обновлены"
+        } 
+
+## Данные пациента [/api/patient/diagnoses]
+### Чтение данных пациента [GET]
+
++ Request
+
+    + Headers
+
+            sid: {sid}
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+            "diagnoses" : ["ОРЗ", "Воспаление уха"],
+            "success": true,
+            "message": "Данные о диагнозах успешно прочитаны"
+        } 
+
+## Данные пациента [/api/patient/doctors]
+### Чтение данных пациента [GET]
+
++ Request
+
+    + Headers
+
+            sid: {sid}
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        {
+            "doctors" : [
+                {
+                    "id": 1,
+                    "name" : "Вася пупкин",
+                    "position":             {
+                        "id": 1,
+                        "name": "Терапевт"
+                    }
+                }, 
+                {
+                    "id": 2,
+                    "name" : "Иванов Иван",
+                    "position":             {
+                        "id": 1,
+                        "name": "Хирург"
+                    }
+                }],
+            "success": true,
+            "message": "Данные о врачах успешно прочитаны"
         } 
 
 ## Смена пароля пациента [/api/patient/password/?password={password}]
@@ -303,6 +354,33 @@ API: ***api.fmomi.newway.pro***
            }]
         }
 
+# Раздел карточка врача [/api/doctor]
+### Чтение шаблона[GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json) 
+
+        {
+            "bankСard": "123456",
+            "certificate": "1234123",
+            "offerAccepted": true,
+            "medicalFacility": [
+                {
+                    "id": 1,
+                    "title": "Учреждение 1"
+                },
+                {
+                    "id": 2,
+                    "title": "Учреждение 2"
+                }
+            ]
+        }
 
 # Раздел шаблоны [/api/doctor/template/{id}]
 
@@ -481,8 +559,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Терапевт"
                     }
                 },
@@ -506,8 +584,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Шаман"
                     }
                 },
@@ -531,8 +609,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Терапевт"
                     }
                 },
@@ -561,8 +639,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Специалист по неведомой ерунде"
                     }
                 },
@@ -850,8 +928,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Терапевт"
                     }
                 },
@@ -875,8 +953,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Шаман"
                     }
                 },
@@ -899,8 +977,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Терапевт"
                     }
                 },
@@ -928,8 +1006,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position":             {
+                        "id": 1,
                         "name": "Специалист по неведомой ерунде"
                     }
                 },
@@ -975,8 +1053,8 @@ API: ***api.fmomi.newway.pro***
               "employee":          {
                     "id": 1,
                     "phone": "79021234567",
-                    "employeeType":             {
-                        "id": "54bf2007ce9c157100783655",
+                    "position": {
+                        "id": 1,
                         "name": "терапевт ревматолог"
                     }
                 }
