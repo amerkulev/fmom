@@ -353,9 +353,7 @@ API: ***api.fmomi.newway.pro***
               "phone": "79021234567"
            }]
         }
-
-# Раздел карточка врача [/api/doctor]
-### Чтение шаблона[GET]
+# Подтверждение оферты врачем [/api/doctor/accept]
 
 + Request (application/json)
 
@@ -378,6 +376,103 @@ API: ***api.fmomi.newway.pro***
                 {
                     "id": 2,
                     "title": "Учреждение 2"
+                }
+            ],
+            "specialisations": [
+                {
+                    "id": 1,
+                    "title": "Уролог"
+                }
+            ]
+        }
+
+# Раздел карточка врача [/api/doctor]
+### Чтение карточки[GET]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json) 
+
+        {
+            "bankСard": "123456",
+            "certificate": "1234123",
+            "offerAccepted": true,
+            "medicalFacility": [
+                {
+                    "id": 1,
+                    "title": "Учреждение 1"
+                },
+                {
+                    "id": 2,
+                    "title": "Учреждение 2"
+                }
+            ],
+            "specialisations": [
+                {
+                    "id": 1,
+                    "title": "Уролог"
+                }
+            ]
+        }
+
+### Обновление карточки[POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+            
+    + Body
+    
+            {
+                "bankСard": "123456",
+                "certificate": "1234123",
+                "offerAccepted": true,
+                "medicalFacility": [
+                    {
+                        "id": 1,
+                        "title": "Учреждение 1"
+                    },
+                    {
+                        "id": 2,
+                        "title": "Учреждение 2"
+                    }
+                ],
+                "specialisations": [
+                    {
+                        "id": 1,
+                        "title": "Уролог"
+                    }
+                ]
+            }
+
++ Response 200 (application/json) 
+
+        {
+            "bankСard": "123456",
+            "certificate": "1234123",
+            "offerAccepted": true,
+            "medicalFacility": [
+                {
+                    "id": 1,
+                    "title": "Учреждение 1"
+                },
+                {
+                    "id": 2,
+                    "title": "Учреждение 2"
+                }
+            ],
+            "specialisations": [
+                {
+                    "id": 1,
+                    "title": "Уролог"
                 }
             ]
         }
@@ -1060,6 +1155,38 @@ API: ***api.fmomi.newway.pro***
                 }
            }
         }
+        
+##Справочник специализации [/api/catalog/specialisation]
+### Чтение [GET]        
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        [{
+               "id": 1,
+               "title": "уролог"
+        }]
+      
+##Компании [/api/company]
+### Чтение [GET]        
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+
++ Response 200 (application/json)
+
+        [{
+               "id": 1,
+               "title": "Шанс"
+        }]      
         
 ## Аптека [/api/pharmacy/{id}]
 ### Чтение цен на лекарства [GET]
