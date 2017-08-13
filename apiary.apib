@@ -402,6 +402,9 @@ API: ***api.fmomi.newway.pro***
             "bankСard": "123456",
             "certificate": "1234123",
             "offerAccepted": true,
+            "license": "1234",
+            "name": "Name",
+            "phone": "79022623586",
             "medicalFacility": [
                 {
                     "id": 1,
@@ -435,6 +438,9 @@ API: ***api.fmomi.newway.pro***
                 "bankСard": "123456",
                 "certificate": "1234123",
                 "offerAccepted": true,
+                "license": "1234",
+                "name": "Name",
+                "phone": "79022623586",                
                 "medicalFacility": [
                     {
                         "id": 1,
@@ -459,6 +465,9 @@ API: ***api.fmomi.newway.pro***
             "bankСard": "123456",
             "certificate": "1234123",
             "offerAccepted": true,
+            "license": "1234",
+            "name": "Name",
+            "phone": "79022623586",            
             "medicalFacility": [
                 {
                     "id": 1,
@@ -480,7 +489,10 @@ API: ***api.fmomi.newway.pro***
 # Раздел шаблоны [/api/doctor/template/{id}]
 
 ### Чтение шаблона[GET]
++ Parameters
 
+    + id (required, integer) 
+    
 + Request (application/json)
 
     + Headers
@@ -488,6 +500,54 @@ API: ***api.fmomi.newway.pro***
             X-API-VERSION: v1
             sid: {sid}
         
++ Response 200 (application/json) 
+
+        {
+            "id": 1,
+            "title": "ОРЗ",
+            "visitAt": "2015-03-05T17:06:00.000+0500",
+            "state": "COMPLETED",
+            "diagnosis": "Ветрянка",
+            "treatmentPlan": [{
+                "id": 1,
+                "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                "plan": "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+            }],
+            "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+            "recommendations": "Рекомендация 1: 456: 789: 123"            
+        }
+
+### Обновление шаблона[PUT]
++ Parameters
+
+    + id (optional, integer) 
+    
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+        
++ Request
+
+    + Body
+        
+            {
+                "id": 1,
+                "title": "ОРЗ",
+                "visitAt": "2015-03-05T17:06:00.000+0500",
+                "state": "COMPLETED",
+                "diagnosis": "Ветрянка",
+                "treatmentPlan": [{
+                    "id": 1,
+                    "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                    "plan": "1 к х 8 раз в день в оба глаза -3 дня,затем 1 к х 4 разав день - 4 дня"                
+                }],
+                "researchPlan": "Сдать анализы. Анализы принимаются по будням",
+                "recommendations": "Рекомендация 1: 456: 789: 123"            
+            }
+
 + Response 200 (application/json) 
 
         {
@@ -1172,8 +1232,12 @@ API: ***api.fmomi.newway.pro***
                "title": "уролог"
         }]
       
-##Компании [/api/company]
+##Компании [/api/company?search={search}]
 ### Чтение [GET]        
+
++ Parameters
+
+    + search (optional, string)
 
 + Request (application/json)
 
