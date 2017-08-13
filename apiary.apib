@@ -564,7 +564,27 @@ API: ***api.fmomi.newway.pro***
             "researchPlan": "Сдать анализы. Анализы принимаются по будням",
             "recommendations": "Рекомендация 1: 456: 789: 123"            
         }
+        
+###Удаление шаблона врача [DELETE]
 
++ Parameters
+
+    + id (required, integer) 
+    
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Шаблон консультации удален!",
+        }
+        
 ### Чтение списка шаблонов [/api/doctor/template?page={page}&size={size}]
 
 + Request (application/json)
