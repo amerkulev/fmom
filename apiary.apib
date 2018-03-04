@@ -27,6 +27,10 @@ API: ***api.fmomi.newway.pro***
         DIAGNOSIS("Диагноз"), TREATMENT_PLAN("План лечения"), RECOMMENDATIONS("Рекомендации"), RESEARCH_PLAN("План исследований");
     }
 
+    OrderState {
+        NEW("Новый"), SENT("Отправлен"), ACCEPTED("Подтвержден"), REJECTED("Отклонен");
+    }
+
 # Group Авторизация
 
 ## Авторизация [/api/auth/login?phone={phone}&password={password}&role={role}]
@@ -1271,8 +1275,54 @@ API: ***api.fmomi.newway.pro***
                "id": 1,
                "title": "Шанс"
         }]      
-        
-## Аптека [/api/pharmacy/{id}?latitude={latitude}&longitude={longitude}]
+
+## Аптека [/api/pharmacy/]        
+### Чтение заказов на лекарства [GET]
+
++ Parameters
+
+    + page (required, integer, `0`) ... Страница к отображению
+    + size (required, integer, `10`) ... размер страницы для отображения
+
++ Request (application/json)
+
+    + Headers
+
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+            [{
+                    "id" : 1,
+                    "state" : "NEW",//OrderState
+                    "createdAt" : '2015-03-05T17:06:00.000+0500',
+                    "prices" : [
+                        {
+                            "id":1,
+                            "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                            "form": "90 таблеток по 50мг",
+                            "price": 14212, //в копейках
+                            "amount":1
+                        },
+                        {
+                            "id":2,
+                            "title": "Подорожник",
+                            "form": "50 листочков по 1",
+                            "price":, 1000 //в копейках
+                            "amount":1
+                        },
+                        {
+                            "id":3,
+                            "title": "Амбробене",
+                            "form": "150 мл",
+                            "price": 18575, //в копейках
+                            "amount":1
+                        }                    
+                    ]
+            }]
+                  
+## Заказы [/api/pharmacy/{id}?latitude={latitude}&longitude={longitude}]
 ### Чтение цен на лекарства [GET]
 
 + Parameters
@@ -1354,10 +1404,12 @@ API: ***api.fmomi.newway.pro***
             {
                   prices : [
                     {
-                        "id":3 // идентификатор цены, например амбробене
+                        "id":3, // идентификатор цены, например амбробене
+                        "amount":1 //Количество препарата
                     }, 
                     {
-                        "id":1
+                        "id":1,
+                        "amount":1
                     },
                   ]
             } 
@@ -1369,24 +1421,28 @@ API: ***api.fmomi.newway.pro***
                "message": "Заказ успешно размещен. Ожидайте звонка",
                "order" : {
                     "id" : 1,
+                    "state" : "NEW",//OrderState
                     "prices" : [
                         {
                             "id":1,
                             "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
                             "form": "90 таблеток по 50мг",
-                            "price": 14212 //в копейках
+                            "price": 14212, //в копейках
+                            "amount":1
                         },
                         {
                             "id":2,
                             "title": "Подорожник",
                             "form": "50 листочков по 1",
-                            "price": 1000 //в копейках
+                            "price":, 1000 //в копейках
+                            "amount":1
                         },
                         {
                             "id":3,
                             "title": "Амбробене",
                             "form": "150 мл",
-                            "price": 18575 //в копейках
+                            "price": 18575, //в копейках
+                            "amount":1
                         }                    
                     ]
                }
