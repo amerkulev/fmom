@@ -28,7 +28,11 @@ API: ***api.fmomi.newway.pro***
     }
 
     OrderState {
-        NEW("Новый"), SENT("Отправлен"), ACCEPTED("Подтвержден"), REJECTED("Отклонен");
+        NEW("Новый"), SENT("Отправлен"), ACCEPTED("Подтвержден"), REJECTED("Отклонен"), COLLECTED("Заказ собран"), COMPLETED("Заказ передан клиенту");
+    }
+    
+    DeviceType {
+        ANDROID("Андроид");
     }
 
 # Group Авторизация
@@ -104,7 +108,9 @@ API: ***api.fmomi.newway.pro***
                 "phone": "71234567891"
                 "address": "address",
                 "job": "job",
-                "birthDate": "2015-03-05T17:06:00.000+0500"
+                "birthDate": "2015-03-05T17:06:00.000+0500",
+                "deviceType": "ANDROID", //DeviceType
+                "pushToken": "blabla"
             },
             "success": true,
             "message": "Данные о пациенте успешно прочитаны"
@@ -125,7 +131,9 @@ API: ***api.fmomi.newway.pro***
               "name": "name",
               "address": "address",
               "job": "job",
-              "birthDate": "2015-03-05T17:06:00.000+0500"
+              "birthDate": "2015-03-05T17:06:00.000+0500",
+              "deviceType": "ANDROID", //DeviceType
+              "pushToken": "blabla"
             }
         
 + Response 200 (application/json)
@@ -135,7 +143,9 @@ API: ***api.fmomi.newway.pro***
                 "name": "name",
                 "address": "address",
                 "job": "job",
-                "birthDate": "2015-03-05T17:06:00.000+0500"
+                "birthDate": "2015-03-05T17:06:00.000+0500",
+                "deviceType": "ANDROID", //DeviceType
+                "pushToken": "blabla"                
             },
             "success": true,
             "message": "Данные о пациенте успешно обновлены"
@@ -1067,6 +1077,53 @@ API: ***api.fmomi.newway.pro***
            }]
         }
 
+##Список заказов [/api/doctor/pharmacy?page={page}&size={size}]
+###Прочитать список пациентов[GET]
+
++ Parameters
+
+    + page (optional, integer) ... `page` номер страницы
+    + size (optional, integer, `10`)
+
++ Request (application/json)
+
+    + Headers
+    
+            X-API-VERSION: v1
+            sid: {sid}
+
++ Response 200 (application/json)
+
+        [{
+                    "id" : 1,
+                    "state" : "NEW",//OrderState
+                    "createdAt" : '2015-03-05T17:06:00.000+0500',
+                    "num": "1-1",
+                    "prices" : [
+                        {
+                            "id":1,
+                            "title": "Левофлоксацин (Сигницеф,Л-оптик,Офтаквикс)",
+                            "form": "90 таблеток по 50мг",
+                            "price": 14212, //в копейках
+                            "amount":1
+                        },
+                        {
+                            "id":2,
+                            "title": "Подорожник",
+                            "form": "50 листочков по 1",
+                            "price":, 1000 //в копейках
+                            "amount":1
+                        },
+                        {
+                            "id":3,
+                            "title": "Амбробене",
+                            "form": "150 мл",
+                            "price": 18575, //в копейках
+                            "amount":1
+                        }                    
+                    ]
+        }]
+
 # Group Консультации Пациента
 ## Консультации пациента [/api/patient/consultation?page={page}&size={size}]
 ### Получение списка консультаций пациента [GET]
@@ -1297,6 +1354,7 @@ API: ***api.fmomi.newway.pro***
                     "id" : 1,
                     "state" : "NEW",//OrderState
                     "createdAt" : '2015-03-05T17:06:00.000+0500',
+                    "num": "1-1",
                     "prices" : [
                         {
                             "id":1,
@@ -1422,6 +1480,7 @@ API: ***api.fmomi.newway.pro***
                "order" : {
                     "id" : 1,
                     "state" : "NEW",//OrderState
+                    "num": "1-1",
                     "prices" : [
                         {
                             "id":1,
